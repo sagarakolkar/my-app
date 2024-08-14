@@ -1,7 +1,7 @@
 version: 2
 plan:
   project-key: MARS
-  key: SPACESHIP
+  key: SPACESHIP007
   name: My SPACESHIP
 
 stages:
@@ -37,32 +37,23 @@ Job 4:
 version: 2
 deployment:
   name: MARS
-  source-plan: MARS-SPACESHIP
+  source-plan: MARS-SPACESHIP007
 release-naming:
   next-version-name: release-1
   applies-to-branches: false
   auto-increment: true
+  auto-increment-variables: []
 environments:
-- DEV
 - QA
-DEV:
-  tasks:
-  - clean
-  - script:
-      interpreter: SHELL
-      scripts:
-      - echo "Deploy"
-  final-tasks: []
-  variables: {}
-  requirements: []
-  notifications: []
 QA:
+  triggers: 
+    - build-success  
   tasks:
   - clean
   - script:
       interpreter: SHELL
       scripts:
-      - echo "deploy2"
+      - echo "deploy"
   final-tasks: []
   variables: {}
   requirements: []
@@ -73,20 +64,20 @@ deployment:
   name: MARS
 deployment-permissions:
 - roles:
-  - logged-in
   - anonymous
   permissions:
   - view
 - users:
   - azure
+  roles:
+  - logged-in
   permissions:
   - view
   - edit
   - viewConfiguration
 environment-permissions:
-- DEV:
+- QA:
   - roles:
-    - logged-in
     - anonymous
     permissions:
     - view
@@ -97,16 +88,9 @@ environment-permissions:
     - edit
     - deploy
     - viewConfiguration
-- QA:
   - roles:
     - logged-in
-    - anonymous
-    permissions:
-    - view
-  - users:
-    - azure
     permissions:
     - view
     - edit
-    - deploy
     - viewConfiguration
