@@ -1,8 +1,8 @@
 version: 2
 plan:
   project-key: MARS
-  key: ROCKET
-  name: My Plan-1
+  key: SPACESHIP
+  name: My SPACESHIP
 
 stages:
   - Stage 1:
@@ -37,7 +37,7 @@ Job 4:
 version: 2
 deployment:
   name: MARS
-  source-plan: MARS-ROCKET
+  source-plan: MARS-SPACESHIP
 release-naming:
   next-version-name: release-1
   applies-to-branches: false
