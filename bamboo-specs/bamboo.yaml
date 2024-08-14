@@ -11,4 +11,4 @@ stages:
 Build:
   tasks:
     - script:
-      - echo 'Hello Again Bamboo World!'
+      - echo 'Hello Again My Bamboo World!'
