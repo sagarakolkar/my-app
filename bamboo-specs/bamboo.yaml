@@ -41,27 +41,6 @@ deployment:
 release-naming:
   next-version-name: Deployment-${bamboo.buildNumber}
   applies-to-branches: false
-environments:
-  - QA
-  - Staging
-QA:
-  tasks:
-    - script:
-        interpreter: /bin/sh
-        scripts:
-          - echo "123"
-  final-tasks:
-    - clean
-
-
-Staging:
-  tasks:
-    - script:
-        interpreter: /bin/sh
-        scripts:
-          - echo "123"
-  final-tasks:
-    - clean
 ---
 version: 2
 deployment:
