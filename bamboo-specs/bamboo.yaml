@@ -35,6 +35,23 @@ Job 4:
         - echo 'Hello WORLD from YAML Specs Job 4' 
 ---
 version: 2
+deployment:
+  name: Deploy satellites 1
+  source-plan: ROCKET
+release-naming:
+  next-version-name: release-1.1
+  applies-to-branches: true
+  auto-increment: true
+environments:
+  - Test
+  - QA
+  - Prod
+
+Test:
+  - tasks:
+    - clean  
+---
+version: 2
 plan:
   project-key: MARS
   key: ROCKET1
@@ -69,6 +86,23 @@ Job 4:
   tasks:
     - script:
         - echo 'Hello WORLD from YAML Specs Job 4'        
+---
+version: 2
+deployment:
+  name: Deploy satellites 2
+  source-plan: ROCKET1
+release-naming:
+  next-version-name: release-1.1
+  applies-to-branches: true
+  auto-increment: true
+environments:
+  - Test
+  - QA
+  - Prod
+
+Test:
+  - tasks:
+    - clean         
 ---
 version: 2
 plan:
@@ -107,6 +141,24 @@ Job 4:
         - echo 'Hello WORLD from YAML Specs Job 4'        
 ---
 version: 2
+deployment:
+  name: Deploy satellites 3
+  source-plan: ROCKET2
+release-naming:
+  next-version-name: release-1.1
+  applies-to-branches: true
+  auto-increment: true
+environments:
+  - Test
+  - QA
+  - UAT
+  - Prod
+
+Test:
+  - tasks:
+    - clean         
+---
+version: 2
 plan:
   project-key: MARS
   key: ROCKET3
@@ -141,4 +193,20 @@ Job 4:
   tasks:
     - script:
         - echo 'Hello WORLD from YAML Specs Job 4'        
+---
+version: 2
+deployment:
+  name: Deploy satellites 4
+  source-plan: ROCKET3
+release-naming:
+  next-version-name: release-1.1
+  applies-to-branches: true
+  auto-increment: true
+environments:
+  - Test
+  - QA
+  - Prod
+Test:
+  - tasks:
+    - clean         
        
