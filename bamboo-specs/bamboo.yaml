@@ -21,14 +21,84 @@ Build:
 ---
 version: 2
 deployment:
-  name: Deploy Rocket
+  name: MARS
   source-plan: MARS-ROCKET
-
 release-naming:
-  next-version-name: 0.${bamboo.buildNumber}
-
+  next-version-name: release-1
+  applies-to-branches: false
+  auto-increment: true
+  auto-increment-variables: []
 environments:
-  - QA
+- DEV
+- QA
+DEV:
+  triggers: &id001 []
+  tasks:
+  - clean
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "Deploy"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []
+QA:
+  triggers: *id001
+  tasks:
+  - clean
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "deploy2"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []
+---
+version: 2
+deployment:
+  name: MARS
+deployment-permissions:
+- roles:
+  - logged-in
+  - anonymous
+  permissions:
+  - view
+- users:
+  - azure
+  permissions:
+  - view
+  - edit
+  - viewConfiguration
+environment-permissions:
+- DEV:
+  - roles:
+    - logged-in
+    - anonymous
+    permissions:
+    - view
+  - users:
+    - azure
+    permissions:
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
+- QA:
+  - roles:
+    - logged-in
+    - anonymous
+    permissions:
+    - view
+  - users:
+    - azure
+    permissions:
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
+...
 
 QA:
   tasks:
