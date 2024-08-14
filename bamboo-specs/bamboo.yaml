@@ -37,7 +37,7 @@ Job 4:
 version: 2
 deployment:
   name: Deploy satellites 1
-  source-plan: ROCKET
+  source-plan: MARS-ROCKET
 release-naming:
   next-version-name: release-1.1
   applies-to-branches: true
@@ -90,7 +90,7 @@ Job 4:
 version: 2
 deployment:
   name: Deploy satellites 2
-  source-plan: ROCKET1
+  source-plan: MARS-ROCKET1
 release-naming:
   next-version-name: release-1.1
   applies-to-branches: true
@@ -143,7 +143,7 @@ Job 4:
 version: 2
 deployment:
   name: Deploy satellites 3
-  source-plan: ROCKET2
+  source-plan: MARS-ROCKET2
 release-naming:
   next-version-name: release-1.1
   applies-to-branches: true
