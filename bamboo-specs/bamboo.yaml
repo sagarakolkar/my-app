@@ -1,212 +1,49 @@
+---
 version: 2
 plan:
   project-key: MARS
   key: ROCKET
-  name: My Plan
+  name: Build the rockets
 
+# List of plan's stages and jobs
 stages:
-  - Stage 1:
-      jobs:
-        - Job 1
-  - Stage 2:
-      jobs:
-        - Job 2
-  - Stage 3:
-      jobs:
-        - Job 3      
-  - Stage 4:
-      jobs:
-        - Job 4     
-Job 1:
+  - Build the rocket stage:
+    - Build
+
+#Job definition
+Build:
   tasks:
     - script:
-        - echo 'Hello WORLD from YAML Specs Job 1'
-Job 2:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 2'
-Job 3:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 3'
-Job 4:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 4' 
+        - mkdir -p falcon/red
+        - echo wings > falcon/red/wings
+        - sleep 1
+        - echo 'Built it'
+    - test-parser:
+        type: junit
+        test-results: '**/junit/*.xml' 
+  # Job's requirements
+  requirements:
+     - isRocketFuel
+  # Job's artifacts. Artifacts are shared by default.
+  artifacts:
+     - name: Red rocket built
+       pattern: falcon/red/wings
 ---
 version: 2
 deployment:
-  name: Deploy satellites 1
+  name: Deploy Rocket
   source-plan: MARS-ROCKET
+
 release-naming:
-  next-version-name: release-1.1
-  applies-to-branches: true
-  auto-increment: true
+  next-version-name: 0.${bamboo.buildNumber}
+
 environments:
-  - Test
   - QA
-  - Prod
 
-Test:
-  - tasks:
-    - clean  
----
-version: 2
-plan:
-  project-key: MARS
-  key: ROCKET1
-  name: My Plan-1
-
-stages:
-  - Stage 1:
-      jobs:
-        - Job 1
-  - Stage 2:
-      jobs:
-        - Job 2
-  - Stage 3:
-      jobs:
-        - Job 3      
-  - Stage 4:
-      jobs:
-        - Job 4     
-Job 1:
+QA:
   tasks:
+    - clean
+    - artifact-download:
+        destination: /
     - script:
-        - echo 'Hello WORLD from YAML Specs Job 1'
-Job 2:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 2'
-Job 3:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 3'
-Job 4:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 4'        
----
-version: 2
-deployment:
-  name: Deploy satellites 2
-  source-plan: MARS-ROCKET1
-release-naming:
-  next-version-name: release-1.1
-  applies-to-branches: true
-  auto-increment: true
-environments:
-  - Test
-  - QA
-  - Prod
-
-Test:
-  - tasks:
-    - clean         
----
-version: 2
-plan:
-  project-key: MARS
-  key: ROCKET2
-  name: My Plan-2
-
-stages:
-  - Stage 1:
-      jobs:
-        - Job 1
-  - Stage 2:
-      jobs:
-        - Job 2
-  - Stage 3:
-      jobs:
-        - Job 3      
-  - Stage 4:
-      jobs:
-        - Job 4     
-Job 1:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 1'
-Job 2:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 2'
-Job 3:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 3'
-Job 4:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 4'        
----
-version: 2
-deployment:
-  name: Deploy satellites 3
-  source-plan: MARS-ROCKET2
-release-naming:
-  next-version-name: release-1.1
-  applies-to-branches: true
-  auto-increment: true
-environments:
-  - Test
-  - QA
-  - UAT
-  - Prod
-
-Test:
-  - tasks:
-    - clean         
----
-version: 2
-plan:
-  project-key: MARS
-  key: ROCKET3
-  name: My Plan-3
-
-stages:
-  - Stage 1:
-      jobs:
-        - Job 1
-  - Stage 2:
-      jobs:
-        - Job 2
-  - Stage 3:
-      jobs:
-        - Job 3      
-  - Stage 4:
-      jobs:
-        - Job 4     
-Job 1:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 1'
-Job 2:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 2'
-Job 3:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 3'
-Job 4:
-  tasks:
-    - script:
-        - echo 'Hello WORLD from YAML Specs Job 4'        
----
-version: 2
-deployment:
-  name: Deploy satellites 4
-  source-plan: ROCKET3
-release-naming:
-  next-version-name: release-1.1
-  applies-to-branches: true
-  auto-increment: true
-environments:
-  - Test
-  - QA
-  - Prod
-Test:
-  - tasks:
-    - clean         
-       
+        - echo 'Hello space'       
