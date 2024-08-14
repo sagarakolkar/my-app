@@ -35,19 +35,15 @@ Job 4:
         - echo 'Hello WORLD from YAML Specs Job 44'        
 ---
 version: 2
-
 deployment:
   name: Deployment Project
   source-plan: MARS-SPACESHIP008
-
 release-naming:
   next-version-name: Deployment-${bamboo.buildNumber}
   applies-to-branches: false
-
 environments:
   - QA
   - Staging
-
 QA:
   tasks:
     - script:
@@ -55,10 +51,6 @@ QA:
         scripts:
           - echo "123"
   final-tasks:
-    - script:
-        interpreter: /bin/sh
-        scripts:
-          - echo "123"
     - clean
 
 
@@ -69,30 +61,22 @@ Staging:
         scripts:
           - echo "123"
   final-tasks:
-    - script:
-        interpreter: /bin/sh
-        scripts:
-          - echo "123"
     - clean
-
 ---
 version: 2
-
 deployment:
   name: Deployment Project
   source-plan: MARS-SPACESHIP008
-
 deployment-permissions:
   - users:
       - auser
     permissions:
       - view
-
 default-environment-permissions:
   - users:
       - auser
     groups:
-      - bamboo-dev
+      - bamboo-dc
     permissions:
       - view
       - edit
