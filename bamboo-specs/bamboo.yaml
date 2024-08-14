@@ -1,7 +1,7 @@
 version: 2
 plan:
-  project-key: MOON
-  key: PLAN
+  project-key: MARS
+  key: ROCKET
   name: My Plan
 
 stages:
