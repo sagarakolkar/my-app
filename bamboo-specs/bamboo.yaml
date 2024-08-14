@@ -37,7 +37,7 @@ Job 4:
 version: 2
 plan:
   project-key: MARS
-  key: ROCKET-1
+  key: ROCKET1
   name: My Plan-1
 
 stages:
@@ -73,7 +73,7 @@ Job 4:
 version: 2
 plan:
   project-key: MARS
-  key: ROCKET-2
+  key: ROCKET2
   name: My Plan-2
 
 stages:
@@ -109,7 +109,7 @@ Job 4:
 version: 2
 plan:
   project-key: MARS
-  key: ROCKET-3
+  key: ROCKET3
   name: My Plan-3
 
 stages:
