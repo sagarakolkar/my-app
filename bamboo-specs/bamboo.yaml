@@ -36,27 +36,45 @@ Job 4:
 ---
 version: 2
 deployment:
-  name: Deployment Project
+  name: MARS-Deployment
   source-plan: MARS-SPACESHIP008
 release-naming:
-  next-version-name: Deployment-${bamboo.buildNumber}
+  next-version-name: release-1
   applies-to-branches: false
+  auto-increment: true
+  auto-increment-variables: []
+environments:
+- QA
+QA:
+  triggers: 
+    - build-success  
+  tasks:
+  - clean
+  final-tasks:
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "1234"
+  variables: {}
+  requirements: []
+  notifications: []
 ---
 version: 2
 deployment:
-  name: Deployment Project
-  source-plan: MARS-SPACESHIP008
+  name: MARS-Deployment
 deployment-permissions:
+- users:
+  - azure
+  permissions:
+  - view
+  - edit
+  - viewConfiguration
+environment-permissions:
+- QA:
   - users:
-      - auser
+    - azure
     permissions:
-      - view
-default-environment-permissions:
-  - users:
-      - auser
-    groups:
-      - bamboo-dc
-    permissions:
-      - view
-      - edit
-      - deploy
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
