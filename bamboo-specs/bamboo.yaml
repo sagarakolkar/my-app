@@ -1,8 +1,8 @@
 version: 2
 plan:
   project-key: MARS
-  key: SPACESHIP007
-  name: My SPACESHIP007
+  key: SPACESHIP008
+  name: My SPACESHIP008
 
 stages:
   - Stage 1:
@@ -35,62 +35,65 @@ Job 4:
         - echo 'Hello WORLD from YAML Specs Job 44'        
 ---
 version: 2
+
 deployment:
-  name: MARS
-  source-plan: MARS-SPACESHIP007
+  name: Deployment Project
+  source-plan: MARS-SPACESHIP008
+
 release-naming:
-  next-version-name: release-1
+  next-version-name: Deployment-${bamboo.buildNumber}
   applies-to-branches: false
-  auto-increment: true
-  auto-increment-variables: []
+
 environments:
-- QA
+  - QA
+  - Staging
+
 QA:
-  triggers: 
-    - build-success  
   tasks:
-  - clean
-  - script:
-      interpreter: SHELL
-      scripts:
-      - echo "deploy"
-  final-tasks: []
-  variables: {}
-  requirements: []
-  notifications: []
+    - script:
+        interpreter: /bin/sh
+        scripts:
+          - echo "123"
+  final-tasks:
+    - script:
+        interpreter: /bin/sh
+        scripts:
+          - echo "123"
+    - clean
+
+
+Staging:
+  tasks:
+    - script:
+        interpreter: /bin/sh
+        scripts:
+          - echo "123"
+  final-tasks:
+    - script:
+        interpreter: /bin/sh
+        scripts:
+          - echo "123"
+    - clean
+
 ---
 version: 2
+
 deployment:
-  name: MARS
+  name: Deployment Project
+  source-plan: MARS-SPACESHIP008
+
 deployment-permissions:
-- roles:
-  - anonymous
-  permissions:
-  - view
-- users:
-  - azure
-  roles:
-  - logged-in
-  permissions:
-  - view
-  - edit
-  - viewConfiguration
-environment-permissions:
-- QA:
-  - roles:
-    - anonymous
-    permissions:
-    - view
   - users:
-    - azure
+      - auser
     permissions:
-    - view
-    - edit
-    - deploy
-    - viewConfiguration
-  - roles:
-    - logged-in
+      - view
+
+default-environment-permissions:
+  - users:
+      - auser
+    groups:
+      - bamboo-dev
     permissions:
-    - view
-    - edit
-    - viewConfiguration
+      - view
+      - edit
+      - deploy
