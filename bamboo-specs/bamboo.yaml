@@ -1,14 +1,15 @@
----
 version: 2
 plan:
   project-key: MOON
-  key: ROCKET
-  name: Build the rocket
-stages:
-  - Build hull:
-    - Build
+  key: PLAN
+  name: My Plan
 
-Build:
+stages:
+  - Stage 1:
+      jobs:
+        - Job 1
+
+Job 1:
   tasks:
     - script:
-      - echo 'Hello Again My Bamboo World!'
+        - echo 'Hello from YAML Specs
