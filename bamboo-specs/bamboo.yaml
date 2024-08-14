@@ -1,25 +1,5 @@
 ---
 version: 2
-plan:
-  project-key: MARS
-  key: ROCKET
-  name: Build the rockets
-
-# List of plan's stages and jobs
-stages:
-  - Build the rocket stage:
-    - Build
-
-#Job definition
-Build:
-  tasks:
-    - script:
-        - mkdir -p falcon/red
-        - echo wings > falcon/red/wings
-        - sleep 1
-        - echo 'Built it'
----
-version: 2
 deployment:
   name: MARS
   source-plan: MARS-ROCKET
@@ -29,10 +9,9 @@ release-naming:
   auto-increment: true
   auto-increment-variables: []
 environments:
-- DEV
-- QA
+ - DEV
+ - QA
 DEV:
-  triggers: &id001 []
   tasks:
   - clean
   - script:
@@ -44,7 +23,6 @@ DEV:
   requirements: []
   notifications: []
 QA:
-  triggers: *id001
   tasks:
   - clean
   - script:
@@ -98,10 +76,4 @@ environment-permissions:
     - edit
     - deploy
     - viewConfiguration
-...
-
-QA:
-  tasks:
-    - clean
-    - script:
-        - echo 'Hello space'       
+---
