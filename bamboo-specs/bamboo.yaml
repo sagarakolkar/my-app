@@ -20,19 +20,19 @@ stages:
 Job 1:
   tasks:
     - script:
-        - echo 'Hello WORLD from YAML Specs Job 1'
+        - echo 'Hello WORLD from YAML Specs Job 11'
 Job 2:
   tasks:
     - script:
-        - echo 'Hello WORLD from YAML Specs Job 2'
+        - echo 'Hello WORLD from YAML Specs Job 22'
 Job 3:
   tasks:
     - script:
-        - echo 'Hello WORLD from YAML Specs Job 3'
+        - echo 'Hello WORLD from YAML Specs Job 33'
 Job 4:
   tasks:
     - script:
-        - echo 'Hello WORLD from YAML Specs Job 4'        
+        - echo 'Hello WORLD from YAML Specs Job 44'        
 ---
 version: 2
 deployment:
