@@ -2,7 +2,7 @@ version: 2
 plan:
   project-key: MARS
   key: SPACESHIP007
-  name: My SPACESHIP
+  name: My SPACESHIP007
 
 stages:
   - Stage 1:
