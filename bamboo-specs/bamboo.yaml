@@ -1,8 +1,8 @@
 version: 2
 plan:
   project-key: MARS
-  key: SPACESHIP008
-  name: My SPACESHIP008
+  key: SPACESHIP009
+  name: My SPACESHIP009
 
 stages:
   - Stage 1:
@@ -36,8 +36,8 @@ Job 4:
 ---
 version: 2
 deployment:
-  name: MARS-Deployment
-  source-plan: MARS-SPACESHIP008
+  name: MARS
+  source-plan: MARS-SPACESHIP009
 release-naming:
   next-version-name: release-1
   applies-to-branches: false
@@ -45,32 +45,70 @@ release-naming:
   auto-increment-variables: []
 environments:
 - QA
+- STAGING
+- PROD
 QA:
   triggers: 
     - build-success  
   tasks:
   - clean
-  final-tasks:
   - script:
       interpreter: SHELL
       scripts:
-      - echo "1234"
+      - echo "deploy"
+  final-tasks: []
   variables: {}
   requirements: []
   notifications: []
+STAGING:
+  triggers: 
+    - build-success  
+  tasks:
+  - clean
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "deploy"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []  
+PROD:
+  triggers: 
+    - build-success  
+  tasks:
+  - clean
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "deploy"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []  
 ---
 version: 2
 deployment:
-  name: MARS-Deployment
+  name: MARS
 deployment-permissions:
+- roles:
+  - anonymous
+  permissions:
+  - view
 - users:
   - azure
+  roles:
+  - logged-in
   permissions:
   - view
   - edit
   - viewConfiguration
 environment-permissions:
 - QA:
+  - roles:
+    - anonymous
+    permissions:
+    - view
   - users:
     - azure
     permissions:
@@ -78,3 +116,45 @@ environment-permissions:
     - edit
     - deploy
     - viewConfiguration
+  - roles:
+    - logged-in
+    permissions:
+    - view
+    - edit
+    - viewConfiguration
+- STAGING:
+  - roles:
+    - anonymous
+    permissions:
+    - view
+  - users:
+    - azure
+    permissions:
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
+  - roles:
+    - logged-in
+    permissions:
+    - view
+    - edit
+    - viewConfiguration
+- PROD:
+  - roles:
+    - anonymous
+    permissions:
+    - view
+  - users:
+    - azure
+    permissions:
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
+  - roles:
+    - logged-in
+    permissions:
+    - view
+    - edit
+    - viewConfiguration    
