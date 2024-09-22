@@ -1,0 +1,160 @@
+version: 2
+plan:
+  project-key: MARS
+  key: SPACESHIP007
+  name: My SPACESHIP007
+
+stages:
+  - Stage 1:
+      jobs:
+        - Job 1
+  - Stage 2:
+      jobs:
+        - Job 2
+  - Stage 3:
+      jobs:
+        - Job 3      
+  - Stage 4:
+      jobs:
+        - Job 4     
+Job 1:
+  tasks:
+    - script:
+        - echo 'Hello WORLD from YAML Specs Job 11'
+Job 2:
+  tasks:
+    - script:
+        - echo 'Hello WORLD from YAML Specs Job 22'
+Job 3:
+  tasks:
+    - script:
+        - echo 'Hello WORLD from YAML Specs Job 33'
+Job 4:
+  tasks:
+    - script:
+        - echo 'Hello WORLD from YAML Specs Job 44'        
+---
+version: 2
+deployment:
+  name: MARS
+  source-plan: MARS-SPACESHIP007
+release-naming:
+  next-version-name: release-1
+  applies-to-branches: false
+  auto-increment: true
+  auto-increment-variables: []
+environments:
+- QA
+- STAGING
+- PROD
+QA:
+  triggers: 
+    - build-success  
+  tasks:
+  - clean
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "deploy"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []
+STAGING:
+  triggers: 
+    - build-success  
+  tasks:
+  - clean
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "deploy"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []  
+PROD:
+  triggers: 
+    - build-success  
+  tasks:
+  - clean
+  - script:
+      interpreter: SHELL
+      scripts:
+      - echo "deploy"
+  final-tasks: []
+  variables: {}
+  requirements: []
+  notifications: []  
+---
+version: 2
+deployment:
+  name: MARS
+deployment-permissions:
+- roles:
+  - anonymous
+  permissions:
+  - view
+- users:
+  - azure
+  roles:
+  - logged-in
+  permissions:
+  - view
+  - edit
+  - viewConfiguration
+environment-permissions:
+- QA:
+  - roles:
+    - anonymous
+    permissions:
+    - view
+  - users:
+    - azure
+    permissions:
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
+  - roles:
+    - logged-in
+    permissions:
+    - view
+    - edit
+    - viewConfiguration
+- STAGING:
+  - roles:
+    - anonymous
+    permissions:
+    - view
+  - users:
+    - azure
+    permissions:
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
+  - roles:
+    - logged-in
+    permissions:
+    - view
+    - edit
+    - viewConfiguration
+- PROD:
+  - roles:
+    - anonymous
+    permissions:
+    - view
+  - users:
+    - azure
+    permissions:
+    - view
+    - edit
+    - deploy
+    - viewConfiguration
+  - roles:
+    - logged-in
+    permissions:
+    - view
+    - edit
+    - viewConfiguration    
