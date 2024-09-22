@@ -10,8 +10,7 @@ public class HelloController {
 
 	@GetMapping("/")
 	@ResponseBody
-	public String sayHello(@RequestParam(name = "id",defaultValue = "amol") String name) {
-		return "Greetings from " + name +" !";
+	public String sayHello(@RequestParam(name = "name",defaultValue = "Sagar") String name) {
+		return "Greetings from " + name +"! How are you ?";
 	}
-
 }
